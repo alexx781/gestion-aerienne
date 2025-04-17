@@ -8,13 +8,12 @@ public class Main {
         Pilote pilote = new Pilote("P001", "Dupont", "Jean");
         PersonnelCabine pc1 = new PersonnelCabine("C001", "Martin", "Claire");
         PersonnelCabine pc2 = new PersonnelCabine("C002", "Lemoine", "Luc");
-
         List<PersonnelCabine> equipage = Arrays.asList(pc1, pc2);
 
         Avion avion = new Avion("A320", "Airbus A320");
-        Vol vol1 = new Vol("V100", new Date());
+        Vol vol1 = new Vol("V100", new Date(), "Paris");
 
-        if (avion.verifierDisponibilite(new Date())) {
+        if (avion.verifierDisponibilite(vol1.date)) {
             vol1.affecterVol(avion, pilote, equipage);
             avion.affecterVol(vol1);
         }
@@ -28,5 +27,13 @@ public class Main {
         }
 
         System.out.println(vol1.obtenirVol());
+
+        List<Vol> tousLesVols = new ArrayList<>();
+        tousLesVols.add(vol1);
+
+        System.out.println("\n=== Statistiques ===");
+        System.out.println("Nombre de vols : " + Statistiques.compterVols(tousLesVols));
+        System.out.println("Passagers transportés : " + Statistiques.compterPassagersTransportes(tousLesVols));
+        System.out.println("Destinations populaires : " + Statistiques.destinationsPopulaires(tousLesVols));
     }
 }
